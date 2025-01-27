@@ -1,10 +1,17 @@
 
 # Win Your Argument
-An app thats helps you to win your argument basesed on scientific research proofs.
-![image](https://github.com/user-attachments/assets/a29ec79e-f403-4022-9545-38c20aadb168)
-![image](https://github.com/user-attachments/assets/3fa99041-069d-44b1-89d4-7584a8d9f099)
-![image](https://github.com/user-attachments/assets/cb0572e9-d989-4f17-a848-196aebfad90c)
-![image](https://github.com/user-attachments/assets/c1419a30-bc2a-4e7a-8f76-33511453b384)
+
+***An app thats helps you to win your argument basesed on scientific research proofs.***
+
+
+![image](https://github.com/user-attachments/assets/e6e72dae-06e9-4697-8820-0400e2949377)
+![image](https://github.com/user-attachments/assets/9b213e15-3ed0-4d31-ba08-53e09b812f99)
+![image](https://github.com/user-attachments/assets/cedbe295-537f-460b-865a-89930be4be2d)
+![image](https://github.com/user-attachments/assets/a0fe98e8-7b92-4385-abd0-3be4e4ebf214)
+![image](https://github.com/user-attachments/assets/8ce84f22-b289-4ac1-be3a-b7f7a91a6567)
+![image](https://github.com/user-attachments/assets/6a6a4e62-2a51-4a33-9c20-9516ed62fdc1)
+
+
 
 
 
