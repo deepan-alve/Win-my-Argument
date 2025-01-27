@@ -164,7 +164,7 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 For questions or feedback, feel free to reach out:
 
-**Email:** your-email@example.com  
+**Email:** deepansjps@gmail.com
 **GitHub:** [@deepan-alve](https://github.com/deepan-alve)  
 
 Thank you for exploring **Win Your Argument**! We’re constantly working to enhance the application and expand its features. Stay tuned for updates and improvements!
