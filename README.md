@@ -1,6 +1,14 @@
 
 # Win Your Argument
 
+![image](https://github.com/user-attachments/assets/a29ec79e-f403-4022-9545-38c20aadb168)
+![image](https://github.com/user-attachments/assets/3fa99041-069d-44b1-89d4-7584a8d9f099)
+![image](https://github.com/user-attachments/assets/cb0572e9-d989-4f17-a848-196aebfad90c)
+![image](https://github.com/user-attachments/assets/c1419a30-bc2a-4e7a-8f76-33511453b384)
+
+
+
+
 🚀 **Win Your Argument** is an advanced AI-driven application designed to empower users to craft compelling arguments. Leveraging cutting-edge technologies like **Groq**, **Gemini APIs**, and **SearchXNG**, this application extracts insights from a vast array of research papers. Built on a **Retrieval-Augmented Generation (RAG)** system, Win Your Argument solves complex problems and is set to introduce a **Model United Nations (MUN) Mode** for dynamic debate simulations in the near future.
 
 ---
