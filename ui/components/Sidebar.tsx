@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { BookOpenText, Home, Search, Plus, Settings } from 'lucide-react';
+import { BookOpenText, Home, Search, Plus, Settings, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -18,6 +18,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
   const segments = useSelectedLayoutSegments();
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const refreshPage = () => {
     window.location.href = '/';
@@ -40,15 +41,23 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col bg-white dark:bg-black">
-        <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 px-2 py-8" style={{ width: '80px' }}>
+      <div
+        className={cn(
+          'hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col bg-white dark:bg-black transition-transform duration-300 ease-in-out',
+          !isSidebarOpen && '-translate-x-full',
+        )}
+      >
+        <div
+          className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-white dark:bg-black border-r border-gray-200 dark:border-gray-800 px-2 py-8"
+          style={{ width: '80px' }}
+        >
           <button
             onClick={refreshPage}
             className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
           >
             <Plus className="cursor-pointer" />
           </button>
-          
+
           <VerticalIconContainer>
             {navLinks.map((link, i) => (
               <Link
@@ -69,10 +78,16 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
             ))}
           </VerticalIconContainer>
 
-          <Settings
-            onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-            className="cursor-pointer text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
-          />
+          <div className="flex flex-col items-center gap-y-5">
+            <Settings
+              onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+              className="cursor-pointer text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            />
+            <PanelLeft
+              onClick={() => setIsSidebarOpen(false)}
+              className="cursor-pointer text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            />
+          </div>
 
           <SettingsDialog
             isOpen={isSettingsOpen}
@@ -81,12 +96,26 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
+      <div
+        className={cn(
+          'fixed bottom-8 left-4 z-50 hidden lg:block transition-opacity duration-300',
+          isSidebarOpen ? 'opacity-0 pointer-events-none' : 'opacity-100',
+        )}
+      >
+        <button
+          onClick={() => setIsSidebarOpen(true)}
+          className="p-2 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg shadow-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+        >
+          <PanelLeft />
+        </button>
+      </div>
+
       <div className="fixed bottom-0 w-full z-50 flex flex-row items-center gap-x-6 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 px-4 py-4 shadow-sm lg:hidden">
         <button
           onClick={refreshPage}
           className={cn(
             'relative flex flex-row items-center justify-center cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 duration-150 transition py-2 rounded-lg',
-            'text-gray-600 dark:text-gray-400'
+            'text-gray-600 dark:text-gray-400',
           )}
         >
           <Plus />
@@ -111,7 +140,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
         ))}
       </div>
 
-      <Layout>{children}</Layout>
+      <Layout isSidebarOpen={isSidebarOpen}>{children}</Layout>
     </div>
   );
 };

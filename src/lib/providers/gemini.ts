@@ -12,26 +12,34 @@ export const loadGeminiChatModels = async () => {
 
   try {
     const chatModels = {
-      'gemini-1.5-flash': {
-        displayName: 'Gemini 1.5 Flash',
+      'gemini-2.5-flash': {
+        displayName: 'Gemini 2.5 Flash',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-1.5-flash',
+          modelName: 'gemini-2.5-flash',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
       },
-      'gemini-1.5-flash-8b': {
-        displayName: 'Gemini 1.5 Flash 8B',
+      'gemini-2.5-flash-lite': {
+        displayName: 'Gemini 2.5 Flash-Lite',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-1.5-flash-8b',
+          modelName: 'gemini-2.5-flash-lite',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
       },
-      'gemini-1.5-pro': {
-        displayName: 'Gemini 1.5 Pro',
+      'gemini-2.5-pro': {
+        displayName: 'Gemini 2.5 Pro',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-1.5-pro',
+          modelName: 'gemini-2.5-pro',
+          temperature: 0.7,
+          apiKey: geminiApiKey,
+        }),
+      },
+      'gemini-2.0-flash': {
+        displayName: 'Gemini 2.0 Flash',
+        model: new ChatGoogleGenerativeAI({
+          modelName: 'gemini-2.0-flash',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
