@@ -15,19 +15,9 @@
     "format:write": "prettier . --write"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.10",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/html-to-text": "^9.0.4",
-    "@types/multer": "^1.4.12",
-    "@types/pdf-parse": "^1.1.4",
-    "@types/readable-stream": "^4.0.11",
-    "@types/ws": "^8.5.12",
-    "drizzle-kit": "^0.22.7",
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
@@ -35,7 +25,15 @@
     "@langchain/community": "^0.2.16",
     "@langchain/google-genai": "^0.0.23",
     "@langchain/openai": "^0.0.25",
+    "@types/better-sqlite3": "^7.6.10",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/html-to-text": "^9.0.4",
+    "@types/multer": "^1.4.12",
+    "@types/pdf-parse": "^1.1.4",
     "@types/pg": "^8.15.6",
+    "@types/readable-stream": "^4.0.11",
+    "@types/ws": "^8.5.12",
     "@xenova/transformers": "^2.17.1",
     "axios": "^1.6.8",
     "better-sqlite3": "^11.0.0",
@@ -43,6 +41,7 @@
     "compute-dot": "^1.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.22.7",
     "drizzle-orm": "^0.31.4",
     "express": "^4.19.2",
     "html-to-text": "^9.0.5",
@@ -51,6 +50,7 @@
     "multer": "^1.4.5-lts.1",
     "pdf-parse": "^1.1.1",
     "postgres": "^3.4.7",
+    "typescript": "^5.4.3",
     "winston": "^3.13.0",
     "ws": "^8.17.1",
     "zod": "^3.22.4"
