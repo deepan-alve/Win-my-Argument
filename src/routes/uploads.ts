@@ -1,6 +1,6 @@
 import express from 'express';
 import logger from '../utils/logger';
-import multer, { Multer } from 'multer';
+import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
 import fs from 'fs';
@@ -74,7 +74,7 @@ router.post(
         return;
       }
 
-      const files = (req.files as any)['files'] as multer.File[];
+      const files = (req.files as any)['files'] as Array<Express.Multer.File & { path: string }>;
       if (!files || files.length === 0) {
         res.status(400).json({ message: 'No files uploaded' });
         return;
