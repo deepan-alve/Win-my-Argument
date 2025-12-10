@@ -12,34 +12,26 @@ export const loadGeminiChatModels = async () => {
 
   try {
     const chatModels = {
-      'gemini-2.5-flash': {
-        displayName: 'Gemini 2.5 Flash',
+      'gemini-1.5-flash': {
+        displayName: 'Gemini 1.5 Flash (Recommended)',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-2.5-flash',
+          model: 'gemini-1.5-flash',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
       },
-      'gemini-2.5-flash-lite': {
-        displayName: 'Gemini 2.5 Flash-Lite',
+      'gemini-1.5-flash-8b': {
+        displayName: 'Gemini 1.5 Flash-8B (Faster)',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-2.5-flash-lite',
+          model: 'gemini-1.5-flash-8b',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
       },
-      'gemini-2.5-pro': {
-        displayName: 'Gemini 2.5 Pro',
+      'gemini-1.5-pro': {
+        displayName: 'Gemini 1.5 Pro (Most Capable)',
         model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-2.5-pro',
-          temperature: 0.7,
-          apiKey: geminiApiKey,
-        }),
-      },
-      'gemini-2.0-flash': {
-        displayName: 'Gemini 2.0 Flash',
-        model: new ChatGoogleGenerativeAI({
-          modelName: 'gemini-2.0-flash',
+          model: 'gemini-1.5-pro',
           temperature: 0.7,
           apiKey: geminiApiKey,
         }),
@@ -61,10 +53,10 @@ export const loadGeminiEmbeddingsModels = async () => {
   try {
     const embeddingModels = {
       'text-embedding-004': {
-        displayName: 'Text Embedding',
+        displayName: 'Text Embedding 004',
         model: new GoogleGenerativeAIEmbeddings({
           apiKey: geminiApiKey,
-          modelName: 'text-embedding-004',
+          model: 'text-embedding-004',
         }),
       },
     };
