@@ -4,16 +4,19 @@ services:
     name: win-my-argument-backend
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    buildCommand: npm install && npm run build && npm run db:push
+    startCommand: node dist/app.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: GEMINI_API_KEY
         sync: false
       - key: PORT
-        value: 3001
-    healthCheckPath: /api/config
+        value: 10000
+      - key: SIMILARITY_MEASURE
+        value: cosine
+      - key: KEEP_ALIVE
+        value: 5m
     autoDeploy: true
 
   # Frontend Service

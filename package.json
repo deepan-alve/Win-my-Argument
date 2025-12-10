@@ -3,6 +3,9 @@
   "version": "1.10.0-rc2",
   "license": "MIT",
   "author": "ItzCrazyKns",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "npm run db:push && node dist/app.js",
     "build": "tsc",
