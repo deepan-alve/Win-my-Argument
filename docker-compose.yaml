@@ -1,36 +1,52 @@
-services:
-  searxng:
-    image: docker.io/searxng/searxng:latest
-    volumes:
-      - ./searxng:/etc/searxng:rw
-    ports:
-      - 4000:8080
-    networks:
-      - perplexica-network
-    restart: unless-stopped
+version: '3.8'
 
-  perplexica-backend:
+services:
+  # SearxNG - Privacy-respecting search engine
+  searxng:
+    image: searxng/searxng:latest
+    container_name: win-my-argument-searxng
+    volumes:
+      - searxng-config:/etc/searxng:rw
+    expose:
+      - "8080"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Backend - Node.js API with Gemini AI
+  backend:
     build:
       context: .
       dockerfile: backend.dockerfile
     image: deepanalve/win-my-argument-backend:latest
+    container_name: win-my-argument-backend
     environment:
+      - NODE_ENV=production
       - SEARXNG_API_URL=http://searxng:8080
     depends_on:
       - searxng
     ports:
-      - 3001:3001
+      - "3001:3001"
     volumes:
-      - backend-dbstore:/home/perplexica/data
-      - uploads:/home/perplexica/uploads
-      - ./config.toml:/home/perplexica/config.toml
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - backend-data:/home/perplexica/data
+      - uploads-data:/home/perplexica/uploads
+      - ./config.toml:/home/perplexica/config.toml:ro
     networks:
-      - perplexica-network
+      - app-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  perplexica-frontend:
+  # Frontend - Next.js web interface
+  frontend:
     build:
       context: .
       dockerfile: app.dockerfile
@@ -38,17 +54,30 @@ services:
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001/api}
         - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
     image: deepanalve/win-my-argument-frontend:latest
+    container_name: win-my-argument-frontend
+    environment:
+      - NODE_ENV=production
     depends_on:
-      - perplexica-backend
+      - backend
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
-      - perplexica-network
+      - app-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
-  perplexica-network:
+  app-network:
+    driver: bridge
 
 volumes:
-  backend-dbstore:
-  uploads:
+  backend-data:
+    driver: local
+  uploads-data:
+    driver: local
+  searxng-config:
+    driver: local

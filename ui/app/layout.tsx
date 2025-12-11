@@ -33,6 +33,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                  for (let registration of registrations) {
+                    registration.unregister();
+                  }
+                });
+              }
+            `,
+          }}
+        />
+      </head>
       <body className={cn('min-h-screen bg-white dark:bg-black antialiased', montserrat.className, dancingScript.variable)}>
         <ThemeProvider>
           <Sidebar>{children}</Sidebar>

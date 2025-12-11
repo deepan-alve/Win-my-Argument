@@ -26,14 +26,20 @@ config.toml
 # Log files
 logs/
 *.log
+app.log
 
 # Testing
 /coverage/
+
+# Docker
+.node-version
 
 # Miscellaneous
 .DS_Store
 Thumbs.db
 
-# Db
+# Database
 db.sqlite
 /searxng
+/data/
+/uploads/
