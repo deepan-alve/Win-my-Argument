@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: backend.dockerfile
-    image: itzcrazykns1337/perplexica-backend:main
+    image: deepanalve/win-my-argument-backend:latest
     environment:
       - SEARXNG_API_URL=http://searxng:8080
     depends_on:
@@ -35,9 +35,9 @@ services:
       context: .
       dockerfile: app.dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://127.0.0.1:3001/api
-        - NEXT_PUBLIC_WS_URL=ws://127.0.0.1:3001
-    image: itzcrazykns1337/perplexica-frontend:main
+        - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001/api}
+        - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
+    image: deepanalve/win-my-argument-frontend:latest
     depends_on:
       - perplexica-backend
     ports:
