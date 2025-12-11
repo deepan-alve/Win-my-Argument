@@ -7,7 +7,7 @@ param(
     [string]$VpsUrl,
     
     [Parameter(Mandatory=$false)]
-    [string]$DockerUsername = "deepanalve"
+    [string]$GithubUsername = "deepan-alve"
 )
 
 $ErrorActionPreference = "Stop"
@@ -25,18 +25,18 @@ try {
     exit 1
 }
 
-# Login to Docker Hub
-Write-Host "`n[2/5] Logging into Docker Hub..." -ForegroundColor Yellow
-docker login
+# Login to GitHub Container Registry
+Write-Host "`n[2/5] Logging into GitHub Container Registry..." -ForegroundColor Yellow
+Write-Host "Use your GitHub Personal Access Token (with write:packages permission)" -ForegroundColor Cyan
+docker login ghcr.io
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "✗ Docker login failed!" -ForegroundColor Red
+    Write-Host "✗ GitHub Container Registry login failed!" -ForegroundColor Red
     exit 1
 }
 Write-Host "✓ Logged in successfully" -ForegroundColor Green
-
 # Build and push backend
 Write-Host "`n[3/5] Building backend image..." -ForegroundColor Yellow
-docker build -f Dockerfile.backend -t ${DockerUsername}/win-my-argument-backend:latest .
+docker build -f Dockerfile.backend -t ghcr.io/${GithubUsername}/win-my-argument-backend:latest .
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Backend build failed!" -ForegroundColor Red
     exit 1
@@ -44,11 +44,12 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "✓ Backend built successfully" -ForegroundColor Green
 
 Write-Host "Pushing backend image..." -ForegroundColor Yellow
-docker push ${DockerUsername}/win-my-argument-backend:latest
+docker push ghcr.io/${GithubUsername}/win-my-argument-backend:latest
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Backend push failed!" -ForegroundColor Red
     exit 1
 }
+Write-Host "✓ Backend pushed successfully" -ForegroundColor Green
 Write-Host "✓ Backend pushed successfully" -ForegroundColor Green
 
 # Build and push frontend
@@ -58,7 +59,7 @@ Write-Host "Using VPS URL: http://${VpsUrl}:3001" -ForegroundColor Cyan
 docker build -f Dockerfile.frontend `
   --build-arg NEXT_PUBLIC_API_URL="http://${VpsUrl}:3001/api" `
   --build-arg NEXT_PUBLIC_WS_URL="ws://${VpsUrl}:3001" `
-  -t ${DockerUsername}/win-my-argument-frontend:latest .
+  -t ghcr.io/${GithubUsername}/win-my-argument-frontend:latest .
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Frontend build failed!" -ForegroundColor Red
@@ -67,7 +68,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "✓ Frontend built successfully" -ForegroundColor Green
 
 Write-Host "Pushing frontend image..." -ForegroundColor Yellow
-docker push ${DockerUsername}/win-my-argument-frontend:latest
+docker push ghcr.io/${GithubUsername}/win-my-argument-frontend:latest
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Frontend push failed!" -ForegroundColor Red
     exit 1
