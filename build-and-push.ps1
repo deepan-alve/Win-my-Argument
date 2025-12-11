@@ -36,7 +36,7 @@ Write-Host "✓ Logged in successfully" -ForegroundColor Green
 
 # Build and push backend
 Write-Host "`n[3/5] Building backend image..." -ForegroundColor Yellow
-docker build -f backend.dockerfile -t ${DockerUsername}/win-my-argument-backend:latest .
+docker build -f Dockerfile.backend -t ${DockerUsername}/win-my-argument-backend:latest .
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Backend build failed!" -ForegroundColor Red
     exit 1
@@ -55,7 +55,7 @@ Write-Host "✓ Backend pushed successfully" -ForegroundColor Green
 Write-Host "`n[4/5] Building frontend image..." -ForegroundColor Yellow
 Write-Host "Using VPS URL: http://${VpsUrl}:3001" -ForegroundColor Cyan
 
-docker build -f app.dockerfile `
+docker build -f Dockerfile.frontend `
   --build-arg NEXT_PUBLIC_API_URL="http://${VpsUrl}:3001/api" `
   --build-arg NEXT_PUBLIC_WS_URL="ws://${VpsUrl}:3001" `
   -t ${DockerUsername}/win-my-argument-frontend:latest .

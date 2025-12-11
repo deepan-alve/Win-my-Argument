@@ -22,7 +22,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: backend.dockerfile
+      dockerfile: Dockerfile.backend
     image: deepanalve/win-my-argument-backend:latest
     container_name: win-my-argument-backend
     environment:
@@ -49,7 +49,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: app.dockerfile
+      dockerfile: Dockerfile.frontend
       args:
         - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:3001/api}
         - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:3001}
