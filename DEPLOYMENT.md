@@ -1,11 +1,11 @@
 # 🚀 Docker Deployment Guide
 
-Deploy Win-my-Argument on your Hetzner VPS with automatic updates via Watchtower.
+Deploy Win-my-Argument on your VPS with automatic updates via Watchtower.
 
 ## 📋 Prerequisites
 
 - Docker and Docker Compose installed on VPS
-- Docker Hub account
+- GitHub Personal Access Token (with `write:packages` permission)
 - Your VPS IP address or domain
 - Gemini API key
 
@@ -23,17 +23,27 @@ Deploy Win-my-Argument on your Hetzner VPS with automatic updates via Watchtower
 .\build-and-push.ps1 123.45.67.89
 ```
 
+This script will:
+- Login to GitHub Container Registry (ghcr.io)
+- Build backend and frontend images
+- Push images to ghcr.io/deepan-alve/win-my-argument-backend:latest
+- Push images to ghcr.io/deepan-alve/win-my-argument-frontend:latest
+
 Or manually:
 ```bash
-docker login
-docker build -f backend.dockerfile -t deepanalve/win-my-argument-backend:latest .
-docker push deepanalve/win-my-argument-backend:latest
+# Login to GitHub Container Registry
+echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
-docker build -f app.dockerfile \
+# Build and push backend
+docker build -f Dockerfile.backend -t ghcr.io/deepan-alve/win-my-argument-backend:latest .
+docker push ghcr.io/deepan-alve/win-my-argument-backend:latest
+
+# Build and push frontend
+docker build -f Dockerfile.frontend \
   --build-arg NEXT_PUBLIC_API_URL=http://YOUR_VPS_IP:3001/api \
   --build-arg NEXT_PUBLIC_WS_URL=ws://YOUR_VPS_IP:3001 \
-  -t deepanalve/win-my-argument-frontend:latest .
-docker push deepanalve/win-my-argument-frontend:latest
+  -t ghcr.io/deepan-alve/win-my-argument-frontend:latest .
+docker push ghcr.io/deepan-alve/win-my-argument-frontend:latest
 ```
 
 ### On Your VPS
@@ -69,22 +79,31 @@ docker-compose logs -f
 
 ## 🔄 Automatic Updates with Watchtower
 
-Watchtower monitors and auto-updates your containers. Make sure it's configured:
+Watchtower is already included in the docker-compose.yaml and will automatically update your containers when new images are pushed to GitHub Container Registry.
 
-```yaml
-# On your VPS, add this to docker-compose.yaml or run separately:
-watchtower:
-  image: containrrr/watchtower
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-  command: --interval 300 --cleanup
-  restart: unless-stopped
-```
+**How it works:**
+- Watchtower checks for new images every 5 minutes (300 seconds)
+- Automatically pulls and restarts containers with new images
+- Cleans up old images to save disk space
+- Uses rolling restart to minimize downtime
 
 **Update workflow:**
 1. Make code changes locally
 2. Run `.\build-and-push.ps1 YOUR_VPS_IP`
 3. Watchtower auto-deploys within 5 minutes ✨
+
+**Configuration (already in docker-compose.yaml):**
+```yaml
+watchtower:
+  image: containrrr/watchtower:latest
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  environment:
+    - WATCHTOWER_CLEANUP=true
+    - WATCHTOWER_POLL_INTERVAL=300
+    - WATCHTOWER_INCLUDE_RESTARTING=true
+    - WATCHTOWER_ROLLING_RESTART=true
+```
 
 Or manually update:
 ```bash

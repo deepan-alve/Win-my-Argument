@@ -66,6 +66,41 @@ You can set up **Win Your Argument** in two main ways:
 
 ---
 
+### Production Deployment with Auto-Updates
+
+**Win Your Argument** supports automatic updates using Watchtower and pre-built images from GitHub Container Registry.
+
+1. **Build and Push Images** (from your local machine):
+   ```powershell
+   # Windows PowerShell
+   .\build-and-push.ps1 YOUR_VPS_IP
+   ```
+
+2. **Deploy on VPS**:
+   ```bash
+   git clone https://github.com/deepan-alve/Win-my-Argument.git
+   cd Win-my-Argument
+   
+   # Configure your API keys
+   nano config.toml
+   
+   # Set up environment variables
+   cp .env.example .env
+   nano .env  # Edit with your VPS IP/domain
+   
+   # Deploy with auto-updates enabled
+   docker-compose up -d
+   ```
+
+**Watchtower** will automatically check for new images every 5 minutes and update your containers without manual intervention!
+
+For detailed deployment instructions, see:
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Complete VPS deployment guide
+- [WATCHTOWER.md](./WATCHTOWER.md) - Auto-update configuration and monitoring
+- [GITHUB_PACKAGES.md](./GITHUB_PACKAGES.md) - GitHub Container Registry setup
+
+---
+
 ### Without Docker (Manual Installation)
 
 1. **Clone the Repository**  
