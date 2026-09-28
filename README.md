@@ -22,7 +22,7 @@
 
 ## 📖 Background: A Fork of Perplexica
 
-This project is a fork of the repository **[Perplexica](https://github.com/your-original-repo-link)**. While it retains the foundational concepts, I have reimagined and transformed it into **Win Your Argument**. By introducing powerful integrations and innovative features, this project is tailored to meet my vision of an argument-enhancing AI system.
+This project is a fork of the repository **[Perplexica](https://github.com/ItzCrazyKns/Perplexica)**. While it retains the foundational concepts, I have reimagined and transformed it into **Win Your Argument**. By introducing powerful integrations and innovative features, this project is tailored to meet my vision of an argument-enhancing AI system.
 
 ---
 
